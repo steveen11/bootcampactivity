@@ -7,16 +7,33 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('varchar', {length: 20})
+    @Column({type: 'varchar',
+             length: 30,
+            nullable: true})
     name:string
     
-    @Column('varchar', {length: 20})
+    @Column({type: 'varchar',
+        length: 30,
+       nullable: true})
     email:string
 
-    @Column('varchar', {length: 20})
-    role:string
+    @Column({type: 'enum',
+       nullable: true,
+    name: "role",
+       enum:[
+        'Usuario',
+        'Editor',
+        'Administrador']})
+    role:roleUser
     
-    @Column('varchar', {length: 20})
-    password:string
+    @Column({type: 'varchar',
+        length: 30,
+       nullable: true})    password:string
 
+}
+
+enum roleUser{
+    'Usuario',
+    'Editor',
+    'Administador'
 }

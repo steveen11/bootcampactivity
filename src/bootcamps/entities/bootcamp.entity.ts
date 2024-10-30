@@ -12,21 +12,25 @@ export class Bootcamp {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('varchar', {length: 20})
-    phone:string
+    @Column('int')
+    phone:number
 
     @Column('varchar', {length: 20})
     name: string
 
-    @Column('varchar', {length: 100, default: "XXXX" })
+    @Column('varchar', {length: 100})
     address: string
-
+    
     @Column('text')
-        topics: string
+    topics: string
 
     @Column('double')
-        averageRaiting: number
+    averageRaiting: number
 
-    @Column('date')
-        createAt: Date
+    @Column({type: 'timestamp',
+        name: 'createAt',
+        default: () => 'CURRENT_TIMESTAMP'
+})
+createAt:Date
+
 }

@@ -11,15 +11,21 @@ export class Review {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('varchar', {length: 20})
+    @Column({type: 'varchar',
+            length: 100,
+            nullable: true
+    }
+    )
     title:string
     
-    @Column('varchar', {length: 20})
+    @Column({type: 'text',
+            nullable: false
+    }
+    )
     comment:string
 
-    @Column('varchar', {length: 20})
-    rating:string
-
-
-
+    @Column({type: 'tinyint',
+        nullable: false
+    })
+    rating:number
 }

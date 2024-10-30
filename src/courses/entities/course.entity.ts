@@ -1,3 +1,4 @@
+import { timestamp } from "rxjs"
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity('courses')
@@ -5,22 +6,37 @@ export class Course {
     @PrimaryGeneratedColumn()
     id:number
 
-    @Column('varchar', {length: 50})
+    @Column('varchar', {length: 100})
     title:string
 
     @Column('varchar', {length: 60})
     description:string
 
-    @Column('int')
+    @Column({type: 'tinyint',
+            nullable:true,
+            default: 4
+    })
     weeks:number
 
-    @Column('int')
+    @Column({type: 'decimal',
+            nullable: true
+    })
     tuition:number
 
-    @Column('varchar', {length: 30})
-    minimumSkill:minimumSkill
+    @Column({type: 'enum',
+            name: "minimun_skill",
+            enum:[
+                'Beginner',
+                'Intermediate',
+                'Advance']
 
-    @Column('date')
+    })
+    minimum_skill:minimumSkill
+
+    @Column({type: 'timestamp',
+            name: 'createAt',
+            default: () => 'CURRENT_TIMESTAMP'
+    })
     createAt:Date
 
 }

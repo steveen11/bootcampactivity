@@ -11,7 +11,7 @@ export class BootcampsController {
   create(@Body() payload: any ) {
     //payload: sinonimo del body de la request
     //create, update
-    return payload;
+    return this.bootcampsService.create(payload);
   }
 
   @Get()
@@ -25,8 +25,8 @@ export class BootcampsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBootcampDto: UpdateBootcampDto) {
-    return this.bootcampsService.update(+id, updateBootcampDto);
+  update(@Param('id') id: string, @Body() payload) {
+    return this.bootcampsService.update(+id, payload);
   }
 
   @Delete(':id')
