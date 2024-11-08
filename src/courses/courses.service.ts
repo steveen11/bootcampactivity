@@ -13,7 +13,7 @@ export class CoursesService {
     
   }
 
-  create(payload: any) {
+  create(payload: CreateCourseDto) {
     const newCourse=this.courseRepository.create(payload)
     return this.courseRepository.save(newCourse)
   }
@@ -26,7 +26,7 @@ export class CoursesService {
     return this.courseRepository.findOneBy({id});
   }
 
-  async update(id: number, payload: any) {
+  async update(id: number, payload: UpdateCourseDto) {
     //1. Encontrar por id
     const updCourses= await this.courseRepository.findOneBy({id});
     //2. Hacer update(payload)

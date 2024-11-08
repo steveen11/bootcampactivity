@@ -1,4 +1,6 @@
+import { Bootcamp } from "src/bootcamps/entities/bootcamp.entity";
 import {Entity,
+    ManyToOne,
     PrimaryGeneratedColumn } from "typeorm";
 
 import { Column } from "typeorm";
@@ -28,4 +30,8 @@ export class Review {
         nullable: false
     })
     rating:number
+
+    @ManyToOne(type => Bootcamp, (Bootcamp)=>Bootcamp.review)
+    bootcamp: Bootcamp
+
 }

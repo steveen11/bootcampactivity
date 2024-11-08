@@ -17,7 +17,8 @@ import { BootcampsModule } from './bootcamps/bootcamps.module';
         database: 'bootcamps_2902093',
         entities: [],
         synchronize: true,
-        autoLoadEntities: true
+        autoLoadEntities: true,
+       // dropSchema: true
       }),
       BootcampsModule, UsersModule, ReviewsModule, CoursesModule],
   controllers: [],

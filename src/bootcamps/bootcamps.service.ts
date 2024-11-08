@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBootcampDto } from './dto/create-bootcamp.dto';
 import { UpdateBootcampDto } from './dto/update-bootcamp.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -23,20 +23,29 @@ export class BootcampsService {
   }
 
   findOne(id: number) {
-    return this.bootcampRepository.findOneBy({id});
-  }
+    const b = this.bootcampRepository.findOneBy({id});
+     if (!b){
+    throw new NotFoundException (`no existe el bootcamp con id ${id}`)}
+      else{
+        return b
+      }
+    }
 
   async update(id: number, payload: any) {
     //1. Encontrar por id
     const updBootcamp= await this.bootcampRepository.findOneBy({id});
+    if (!updBootcamp){
+      throw new NotFoundException (`no existe el bootcamp con id ${id}`)
+    }
     //2. Hacer update(payload)
     return this.bootcampRepository.merge(updBootcamp, payload)
-    //3 grabar cambios
-    
   }
 
    async remove(id: number) {
     const delBootcamp= await this.bootcampRepository.findOneBy({id});
+    if (!delBootcamp){
+      throw new NotFoundException (`no existe el bootcamp con id ${id}`)
+    }
     //2.borrar bootcamp
     this.bootcampRepository.delete(delBootcamp)
     //3. return

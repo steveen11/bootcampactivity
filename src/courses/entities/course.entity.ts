@@ -1,5 +1,6 @@
 import { timestamp } from "rxjs"
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Bootcamp } from "src/bootcamps/entities/bootcamp.entity"
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 
 @Entity('courses')
 export class Course {
@@ -38,6 +39,9 @@ export class Course {
             default: () => 'CURRENT_TIMESTAMP'
     })
     createAt:Date
+
+    @ManyToOne(type => Bootcamp, (Bootcamp)=>Bootcamp.courses)
+    bootcamp: Bootcamp
 
 }
 

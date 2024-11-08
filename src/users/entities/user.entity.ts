@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Bootcamp } from "src/bootcamps/entities/bootcamp.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('user')
@@ -29,7 +30,10 @@ export class User {
     @Column({type: 'varchar',
         length: 30,
        nullable: true})    password:string
-
+    
+       @ManyToOne(type => Bootcamp, (Bootcamp)=>Bootcamp.user)
+       bootcamp: Bootcamp
+   
 }
 
 enum roleUser{
@@ -37,3 +41,4 @@ enum roleUser{
     'Editor',
     'Administador'
 }
+
