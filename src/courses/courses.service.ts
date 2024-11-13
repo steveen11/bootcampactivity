@@ -4,17 +4,29 @@ import { UpdateCourseDto } from './dto/update-course.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './entities/course.entity';
+import { Bootcamp } from 'src/bootcamps/entities/bootcamp.entity';
 
 @Injectable()
 export class CoursesService {
 
-  constructor(@InjectRepository(Course)
-    private courseRepository:Repository<Course>) {
+  constructor(@InjectRepository(Course) private courseRepository:Repository<Course>,
+    @ InjectRepository (Bootcamp) private bootcampRepository:Repository<Bootcamp>
+  ) {
     
   }
 
-  create(payload: CreateCourseDto) {
-    const newCourse=this.courseRepository.create(payload)
+   async create(payload: CreateCourseDto ) {
+    const { title, description, weeks, tuition, minimum_skill, createAt, bootcampId } = payload
+    const bootcampById = await this.bootcampRepository.findOneBy({id: bootcampId})
+
+    const newCourse = new Course()
+    newCourse.title  = title
+    newCourse.description = description
+    newCourse.weeks = weeks
+    newCourse.tuition = tuition
+    newCourse.minimum_skill = minimum_skill,
+    newCourse.createAt = createAt
+    newCourse.bootcamp = bootcampById
     return this.courseRepository.save(newCourse)
   }
 
@@ -24,7 +36,7 @@ export class CoursesService {
 
   findOne(id: number) {
     return this.courseRepository.findOneBy({id});
-  }
+  } 
 
   async update(id: number, payload: UpdateCourseDto) {
     //1. Encontrar por id

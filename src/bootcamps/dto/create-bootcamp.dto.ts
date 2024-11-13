@@ -1,4 +1,4 @@
-import { IsAlpha, IsDate, IsInt, IsNotEmpty, IsPositive, IsString, MaxLength, Min, Max } from "class-validator";
+import { IsAlpha,  IsInt, IsNotEmpty, IsPositive, IsString, MaxLength, Min, Max } from "class-validator";
 
 export class CreateBootcampDto {
     
@@ -9,7 +9,8 @@ export class CreateBootcampDto {
 
     @IsInt ({message: "el telefono debe ser numero"})
     @IsNotEmpty({ message: "El teléfono no debe estar vacío" })
-    @MaxLength(15, { message: "El teléfono no debe exceder los 15 caracteres" }) 
+    @Min(1000000000, { message: "El teléfono debe tener al menos 10 dígitos" })
+    @Max(9999999999, { message: "El teléfono no debe exceder los 10 dígitos" })
     readonly phone: number;  
 
     @IsNotEmpty({ message: "La dirección no debe estar vacía" })
@@ -27,7 +28,7 @@ export class CreateBootcampDto {
     @Max(10, { message: "La calificación promedio no puede ser mayor a 10" })
     readonly averageRaiting: number;
 
-    @IsNotEmpty({ message: "La fecha de creación no debe estar vacía" })
-    @IsDate({ message: "La fecha de creación debe ser una fecha válida" })
     readonly createAt: Date;
+
+    
 }

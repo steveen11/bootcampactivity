@@ -16,4 +16,6 @@ export class CreateReviewDto {
   @Min(1, { message: 'La calificación no puede ser menor a 1' })
   @Max(5, { message: 'La calificación no puede ser mayor a 5' })
   readonly rating: number;  
+
+  readonly bootcampId: number
 }

@@ -14,7 +14,9 @@ export class Bootcamp {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('int')
+    @Column({type: 'int',
+        nullable: true
+    })
     phone:number
 
     @Column('varchar', {length: 20})
@@ -38,6 +40,7 @@ createAt:Date
 @OneToMany(()=> Course , (course)=> course.bootcamp)
 
 courses: Course[]
+
 
 @OneToMany(()=> Review , (review)=> review.bootcamp)
 

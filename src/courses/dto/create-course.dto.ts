@@ -1,11 +1,5 @@
 import { IsNotEmpty, IsString, IsInt, IsPositive, MaxLength, IsDate, IsEnum, Min, Max, IsNumber } from 'class-validator';
 
-enum MinimumSkill {
-    'Beginner' = '1',
-    'Intermediate' = '2',
-    'Advance' = '3'
-}
-
 export class CreateCourseDto {
 
     @IsNotEmpty({ message: "La descripción no debe estar vacía" })
@@ -14,7 +8,7 @@ export class CreateCourseDto {
     readonly description: string;
 
     @IsNotEmpty({ message: "El nivel mínimo de habilidad no debe estar vacío" })
-    readonly minimun_skill: MinimumSkill;
+    readonly minimum_skill: minimumSkill;
 
     readonly createAt: Date;
 
@@ -34,4 +28,16 @@ export class CreateCourseDto {
     @IsNumber({}, { message: "La matrícula debe ser un número" })
     @IsPositive({ message: "La matrícula debe ser un número positivo" })
     readonly tuition: number;
+
+    /* la clave foranea con el bootcamp */
+    @IsInt()
+    readonly bootcampId: number;
+    
 }
+
+enum minimumSkill{
+    'Beginner',
+    'Intermediate',
+    'Advance'
+}
+

@@ -2,18 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from './entities/review.entity';
+import { Bootcamp } from 'src/bootcamps/entities/bootcamp.entity';
+import { CreateBootcampDto } from 'src/bootcamps/dto/create-bootcamp.dto';
+import { CreateReviewDto } from './dto/create-review.dto';
 
 @Injectable()
 export class ReviewsService {
 
   constructor(@InjectRepository(Review)
-    private reviewRepository:Repository<Review>) {
+    private reviewRepository:Repository<Review>,
+    @InjectRepository(Bootcamp)
+    private bootcampRepository:Repository<Bootcamp>) {
     
   }
 
-  create(payload: any) {
-    const newReview=this.reviewRepository.create(payload)
+  async create(payload: CreateReviewDto) {
+    const {title, comment, rating, bootcampId} = payload
+    const bootcampById = await this.bootcampRepository.findOneBy({id: bootcampId})
+
+    const newReview = new Review()
+    newReview.title = title
+    newReview.comment = comment
+    newReview.rating = rating
+    newReview.bootcamp=bootcampById
     return this.reviewRepository.save(newReview)
+
+
   }
 
   findAll() {

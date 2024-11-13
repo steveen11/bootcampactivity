@@ -10,7 +10,7 @@ export class Course {
     @Column('varchar', {length: 100})
     title:string
 
-    @Column('varchar', {length: 60})
+    @Column('varchar')
     description:string
 
     @Column({type: 'tinyint',
