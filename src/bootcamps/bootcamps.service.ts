@@ -13,6 +13,11 @@ export class BootcampsService {
     private bootcampRepository: Repository<Bootcamp>){
     }
   
+    async obtenerBootcampsPorUsuarioYTema(p0: number, tema: string): Promise<Bootcamp[]> { 
+      return this.bootcampRepository.createQueryBuilder('bootcamp') .where('bootcamp.usuarioId = :usuarioId', { usuarioId: 3 })
+    .andWhere('bootcamp.topics = :topics', { topics: 'web' }) .getMany(); 
+  }
+
     create(payload: any) {
       const newBootcamp= this.bootcampRepository.create(payload)
       return this.bootcampRepository.save(newBootcamp)
@@ -30,6 +35,8 @@ export class BootcampsService {
         return b
       }
     }
+
+    
 
   async update(id: number, payload: any) {
     //1. Encontrar por id

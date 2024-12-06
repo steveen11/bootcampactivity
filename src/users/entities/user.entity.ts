@@ -31,7 +31,7 @@ export class User {
         length: 30,
        nullable: true})    password:string
     
-       @ManyToOne(type => Bootcamp, (Bootcamp)=>Bootcamp.user)
+       @OneToMany(type => Bootcamp, (Bootcamp)=>Bootcamp.user)
        bootcamp: Bootcamp
    
 }

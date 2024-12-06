@@ -14,9 +14,12 @@ export class BootcampsController {
     return this.bootcampsService.create(payload);
   }
 
-  @Get()
-  findAll() {
-    return this.bootcampsService.findAll();
+  @Get('usuario/:usuarioId/tema/:tema')
+  async obtenerBootcampsPorUsuarioYTema(
+    @Param('usuarioId') usuarioId: string, 
+    @Param('tema') tema: string
+  ) {
+    return this.bootcampsService.obtenerBootcampsPorUsuarioYTema(+usuarioId, tema);
   }
 
 

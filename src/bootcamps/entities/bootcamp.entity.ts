@@ -1,7 +1,7 @@
 import { Course } from "src/courses/entities/course.entity";
 import { Review } from "src/reviews/entities/review.entity";
 import { User } from "src/users/entities/user.entity";
-import {Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 import { Column } from "typeorm";
 
@@ -31,6 +31,9 @@ export class Bootcamp {
     @Column('double')
     averageRaiting: number
 
+    @Column('int')
+    usuarioId: number
+
     @Column({type: 'timestamp',
         name: 'createAt',
         default: () => 'CURRENT_TIMESTAMP'
@@ -47,7 +50,7 @@ courses: Course[]
 review: Review[]
 
 
-@OneToMany(()=> User , (user)=> user.bootcamp)
+@ManyToOne(()=> User , (user)=> user.bootcamp)
 
 user: User[]
 }
